@@ -21,7 +21,7 @@ function makepkg_with_dependency_resolve() {
     build_errors=$(yes | makepkg -s --noconfirm 2>&1)
     missing_targets=$(echo "$build_errors" | grep 'error: target not found:')
     if [ ! -z "$missing_targets" ]; then
-        first_dep=$(echo "$missing_targets" | head -n1 | perl -n -e'/error: target not found: ([^ ]+)/ && print $1')
+        first_dep=$(echo "$missing_targets" | head -n1 | perl -n -e'/error: target not found: ([a-zA-Z0-9-]+)/ && print $1')
 
         # Recursion =D (hopefully this doesn't get out of hand...)
         echo "Resolve first dep: $first_dep"
